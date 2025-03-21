@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techt - IT Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #a3ff56;
+            --dark-color: #222;
+            --light-color: #f8f8f8;
+            --text-color: #333;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 24px;
+        }
+        
+        .logo i {
+            color: var(--primary-color);
+            margin-right: 5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-links a {
+            position: relative;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after, 
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .cta-button {
+            background-color: var(--dark-color);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .cta-button:hover {
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+            transform: translateY(-2px);
+        }
+        
+        .mobile-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background-color: var(--primary-color);
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2381cc41' fill-opacity='0.3' fill-rule='evenodd'/%3E%3C/svg%3E");
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(163, 255, 86, 0.9), rgba(163, 255, 86, 0.6));
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            color: var(--dark-color);
+            opacity: 0.8;
+            font-weight: 500;
+        }
+        
+        /* Services Section */
+        .section-title {
+            text-align: center;
+            margin: 80px 0 20px;
+        }
+        
+        .section-title h2 {
+            color: var(--primary-color);
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .mission-statement {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 36px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        .highlight {
+            background-color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .service-card {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+            height: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .service-card:nth-child(odd) {
+            background-color: var(--dark-color);
+            color: #fff;
+        }
+        
+        .service-card h3 {
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        /* Pricing Section */
+        .pricing-title {
+            text-align: center;
+            margin: 80px 0 20px;
+        }
+        
+        .pricing-title h2 {
+            color: var(--primary-color);
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .pricing-statement {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 36px;
+            font-weight: 600;
+        }
+        
+        .pricing-subtitle {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 60px;
+            color: #666;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .pricing-card {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .pricing-card:first-child {
+            background-color: var(--dark-color);
+            color: #fff;
+        }
+        
+        .plan-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .plan-price {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .plan-unit {
+            font-size: 16px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        
+        .pricing-card:first-child .plan-unit {
+            color: #ccc;
+        }
+        
+        .plan-target {
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .plan-features {
+            margin: 30px 0;
+            flex-grow: 1;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .pricing-card:first-child .feature-item {
+            color: #ddd;
+        }
+        
+        .feature-icon {
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+        
+        .choose-plan {
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+            padding: 12px 25px;
+            border-radius: 4px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 16px;
+            display: inline-block;
+        }
+        
+        .choose-plan:hover {
+            background-color: #8fe840;
+            transform: translateY(-3px);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: #fff;
+            padding: 70px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-logo {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-logo i {
+            color: var(--primary-color);
+            margin-right: 5px;
+        }
+        
+        .footer-desc {
+            color: #aaa;
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            color: var(--dark-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-title {
+            font-size: 18px;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links i {
+            margin-right: 10px;
+            color: var(--primary-color);
+            font-size: 12px;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+        
+        .contact-info li {
+            color: #aaa;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .contact-info i {
+            color: var(--primary-color);
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        .creator {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 992px) {
+            .services-grid, 
+            .pricing-grid,
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: #fff;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 0;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .mission-statement, 
+            .pricing-statement {
+                font-size: 28px;
+            }
+            
+            .services-grid, 
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        .slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .animate {
+            animation: slideUp 0.8s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-microchip"></i> Techt
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#">Homepage</a></li>
+                <li><a href="#" class="active">Services</a></li>
+                <li><a href="#">Case Studies</a></li>
+                <li><a href="#">Page</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            
+            <a href="#" class="cta-button">Get A Quote</a>
+            
+            <div class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="fade-in">Services</h1>
+            <div class="breadcrumb">
+                <a href="#">Home</a>
+                <span>></span>
+                <span>Services</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <div class="section-title slide-up">
+                <h2>Our Services</h2>
+            </div>
+            
+            <div class="mission-statement slide-up">
+                Our Mission Is To Make Your 
+                <span class="highlight">Business</span> Better Through
+                Technology
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card slide-up">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Cyber Security</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit tellus, lectus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+                </div>
+                
+                <div class="service-card slide-up">
+                    <div class="service-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>IT Management</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit tellus, lectus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+                </div>
+                
+                <div class="service-card slide-up">
+                    <div class="service-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>IT Consultancy</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit tellus, lectus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+                </div>
+                
+                <div class="service-card slide-up">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Cloud Computing</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit tellus, lectus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+                </div>
+                
+                <div class="service-card slide-up">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Software Developer</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit tellus, lectus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+                </div>
+                
+                <div class="service-card slide-up">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Marketing Strategy</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit tellus, lectus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing Section -->
+    <section class="pricing">
+        <div class="container">
+            <div class="pricing-title slide-up">
+                <h2>Pricing Plan</h2>
+            </div>
+            
+            <div class="pricing-statement slide-up">
+                We Make IT Simple, Faster, And Less Expensive
+            </div>
+            
+            <p class="pricing-subtitle slide-up">
+                Donec venenatis nunc nec dui faucibus tempus. Fusce sed rutrum dolor, non ultricies elit. Aliquam erat volutpat. Nam consequat id dolor quis commodo.
+            </p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card slide-up">
+                    <h3 class="plan-name">Basic Plan</h3>
+                    <div class="plan-price">$500</div>
+                    <div class="plan-unit">/Project</div>
+                    <div class="plan-target">Good For Personal Portfolio</div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut sit tellus, lectus.</p>
+                    
+                    <div class="plan-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span>Proin ut turpis nec lectus bibendum</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span>Donec venenatis nunc nec dui</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span>Viverra risus veli gravida maximus</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="choose-plan">Choose Plan</a>
+                </div>
+                
+                <div class="pricing-card slide-up">
+                    <h3 class="plan-name">Premium Plan</h3>
+                    <div class="plan-price">$1000</div>
+                    <div class="plan-unit">/Project</div>
+                    <div class="plan-target">Good For Small Company</div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut sit tellus, lectus.</p>
+                    
+                    <div class="plan-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span>Donec venenatis nunc nec dui</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span>Viverra risus veli gravida maximus</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span>Proin ut turpis nec lectus bibendum</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="choose-plan">Choose Plan</a>
+                </div>
+                
+                <div class="pricing-card slide-up">
+                    <h3 class="plan-name">Corporate Plan</h3>
+                    <div class="plan-price">$1500</div>
+                    <div class="plan-unit">/Project</div>
+                    <div class="plan-target">Good For Big Company</div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut sit tellus, lectus.</p>
+                    
+                    <div class="plan-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span>Proin ut turpis nec lectus bibendum</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span>Donec venenatis nunc nec dui</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check feature-icon"></i>
+                            <span>Viverra risus veli gravida maximus</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="choose-plan">Choose Plan</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <i class="fas fa-microchip"></i> Techt
+                    </div>
+                    <p class="footer-desc">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit ut sit tellus.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-nav">
+                    <h4 class="footer-title">Other Pages</h4>
+                    <ul class="footer-links">
+                        <li>
+                            <i class="fas fa-chevron-right"></i>
+                            <a href="#">Homepage</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-chevron-right"></i>
+                            <a href="#">About Us</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-chevron-right"></i>
+                            <a href="#">Services</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-chevron-right"></i>
+                            <a href="#">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-nav">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li>
+                            <i class="fas fa-chevron-right"></i>
+                            <a href="#">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-chevron-right"></i>
+                            <a href="#">Terms of use</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-chevron-right"></i>
+                            <a href="#">Disclaimer</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-chevron-right"></i>
+                            <a href="#">FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4 class="footer-title">Contact Info</h4>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>72 Garside, Miami, USA 789</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>Hello@ForCreation.Net</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+111-222-333</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2022 Copyright All rights reserved by <span class="creator">ForCreation</span></p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            
+            if (navLinks.classList.contains('active')) {
+                mobileToggle.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        // Scroll Animation
+        const scrollElements = document.querySelectorAll('.slide-up');
+        
+        const elementInView = (el, percentageScroll = 100) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return (
+                elementTop <= 
+                ((window.innerHeight || document.documentElement.clientHeight) * (percentageScroll/100))
+            );
+        };
+        
+        const displayScrollElement = (element) => {
+            element.classList.add('animate');
+        };
+        
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 90)) {
+                    displayScrollElement(el);
+                }
+            });
+        };
+        
+        // Initial check
+        setTimeout(() => {
+            handleScrollAnimation();
+        }, 100);
+        
+        // Add event listener
+        window.addEventListener('scroll', () => {
+            handleScrollAnimation();
+        });
+    </script>
+</body>
+</html>
